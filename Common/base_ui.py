@@ -139,13 +139,12 @@ class PCBaseUI:
         :param title: 窗口标题
         :return: 当前窗口的句柄
         '''
-        current = self.driver.current_window_handle
+
         handles = self.driver.window_handles
         for handle in handles:
             self.driver.switch_to_window(handle)
             if (self.driver.title.__contains__(title)):
                 break
-        return current
 
     @shot
     def forward(self):
