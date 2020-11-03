@@ -33,14 +33,14 @@ def create_file(filename):
 
 
 def set_handler(levels):
-    if levels == 'error':
+    if levels in ['error', 'critical']:
         logger.addHandler(MyLog.err_handler)
     logger.addHandler(MyLog.handler)
     logger.addHandler(MyLog.console)
 
 
 def remove_handler(levels):
-    if levels == 'error':
+    if levels in ['error', 'critical']:
         logger.removeHandler(MyLog.err_handler)
     logger.removeHandler(MyLog.handler)
     logger.removeHandler(MyLog.console)

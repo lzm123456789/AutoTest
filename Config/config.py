@@ -23,9 +23,22 @@ class MyConfig:
         with open(self.conf_path, "w+") as f:
             return self.config.write(f)
 
-    def add_conf(self, title):
-        """配置文件添加"""
+    def add_section(self, title):
+        """配置文件添加section"""
         self.config.add_section(title)
+        with open(self.conf_path, "w+") as f:
+            return self.config.write(f)
+
+    def remove_option(self, title, value):
+        """配置文件删除option"""
+
+        self.config.remove_option(title, value)
+        with open(self.conf_path, "w+") as f:
+            return self.config.write(f)
+
+    def remove_section(self, title):
+        """配置文件删除section"""
+        self.config.remove_section(title)
         with open(self.conf_path, "w+") as f:
             return self.config.write(f)
 

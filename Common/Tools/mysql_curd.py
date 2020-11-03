@@ -46,14 +46,20 @@ class MysqlCURD:
             value = rows[0][0]
             return value
 
-    def mysql_cud(self, sql):
+    def mysql_cud(self, sql, have_semicolon=0):
         sign = False
         conn = self.connect()
         cur = conn.cursor()
         try:
             if conn:
-                cur.execute(sql)
-                conn.commit()
+                if have_semicolon == 0:
+                    sql_list = sql.split(';')[:-1]
+                    for i in sql_list:
+                        cur.execute(i)
+                        conn.commit()
+                else:
+                    cur.execute(sql)
+                    conn.commit()
                 sign = True
         except Exception as e:
             log.error("modify failed: %s" % e)

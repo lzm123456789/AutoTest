@@ -123,6 +123,10 @@ class PCBaseUI:
         ActionChains(self.driver).context_click(self.local_element(loc)).perform()
 
     @shot
+    def double_click(self, loc):
+        ActionChains(self.driver).double_click(self.local_element(loc)).perform()
+
+    @shot
     def move_to_element(self, loc):
         ActionChains(self.driver).move_to_element(self.local_element(loc)).perform()
 

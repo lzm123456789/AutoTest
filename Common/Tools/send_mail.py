@@ -28,9 +28,8 @@ class SendMail:
             raise
 
         try:
-            file_html = open(send_file, 'rb')
-            content = file_html.read()
-            file_html.close()
+            with open(send_file, 'rb') as file_html:
+                content = file_html.read()
             mail = MIMEMultipart()
             mail['Subject'] = Header(self.email_subject, 'utf-8')
             mail_text = MIMEText(content, 'html', 'utf-8')
@@ -46,7 +45,7 @@ class SendMail:
             smtp.login(self.sender_login_user, self.sender_login_password)
             smtp.sendmail(mail['From'], mail['To'], mail.as_string())
             smtp.quit()
-            print('Mail sent successfully~')
+            self.log.info('Mail sent successfully~')
         except Exception as e:
             self.log.error('failed to send mail: %s' % e)
             raise
