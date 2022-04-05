@@ -3,8 +3,10 @@ from Log import log
 
 
 class Assert:
+    """封装断言类"""
+
     def __init__(self):
-        self.log = log.MyLog()
+        self.log = log.MyLog
 
     def assert_equal(self, actual_value, expect_value):
         """
@@ -15,11 +17,11 @@ class Assert:
         """
         try:
             assert actual_value == expect_value
+            self.log.info('Test passed')
             return True
         except:
             self.log.error(
-                "actual_value != expect_value, actual_value is %s, expect_value is %s" % (actual_value, expect_value)
-            )
+                "actual_value != expect_value, actual_value is %s, expect_value is %s" % (actual_value, expect_value))
             raise
 
     def assert_exist(self, obj):
@@ -30,6 +32,7 @@ class Assert:
         """
         try:
             assert obj
+            self.log.info('Test passed')
             return True
         except:
             self.log.error("element does not exist, not meeting expectations")

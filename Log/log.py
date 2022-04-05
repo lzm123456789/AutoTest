@@ -2,10 +2,10 @@
 """
 封装log方法
 """
-import logging
-from logging import handlers
 import os
 import time
+import logging
+from logging import handlers
 
 LEVELS = {
     'debug': logging.DEBUG,
@@ -57,11 +57,11 @@ class MyLog:
     create_file(log_file)
     create_file(err_file)
     date = '%Y-%m-%d %H:%M:%S'
+    logger.setLevel(LEVELS.get(level, logging.NOTSET))
     # 将日志输出到屏幕
     console = logging.StreamHandler()
-    console.setLevel(LEVELS.get(level, logging.NOTSET))
+    console.setLevel(LEVELS.get('info', logging.NOTSET))
     # 将日志输出到文件
-    logger.setLevel(LEVELS.get(level, logging.NOTSET))
     handler = handlers.TimedRotatingFileHandler(log_file, when=when, backupCount=backCount, encoding='utf-8')
     err_handler = handlers.TimedRotatingFileHandler(err_file, when=when, backupCount=backCount, encoding='utf-8')
 
@@ -92,13 +92,13 @@ class MyLog:
     @staticmethod
     def critical(log_meg):
         set_handler('critical')
-        logger.error("[CRITICAL " + get_current_time() + "]" + log_meg)
+        logger.critical("[CRITICAL " + get_current_time() + "]" + log_meg)
         remove_handler('critical')
 
 
 if __name__ == "__main__":
     MyLog.debug("This is debug message")
-    MyLog.info("This is info message")
-    MyLog.warning("This is warning message")
-    MyLog.error("This is error")
-    MyLog.critical("This is critical message")
+    # MyLog.info("This is info message")
+    # MyLog.warning("This is warning message")
+    # MyLog.error("This is error message")
+    # MyLog.critical("This is critical message")

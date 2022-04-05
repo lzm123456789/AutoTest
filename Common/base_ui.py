@@ -1,37 +1,89 @@
 # coding=utf-8
-from Log import log
-from Config import config as my_config
-import time
 import os
+import time
+from Log import log
 from functools import wraps
-from selenium import webdriver as web_driver
+from Config import config as my_config
 from appium import webdriver as app_driver
+from selenium import webdriver as web_driver
 from selenium.webdriver.support.ui import WebDriverWait
+from appium.webdriver.mobilecommand import MobileCommand
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
-from appium.webdriver.mobilecommand import MobileCommand
 
-log = log.MyLog()
+log = log.MyLog
+config = my_config.MyConfig()
 
 
-def shot(func):
+def executionlog(func):
+    # 执行UI层自动化测试的时候 报错，重试3次，如果还是报错 则截图和记录日志
+
     @wraps(func)
     def function(*args, **kwargs):
         i = 1
         while i <= 3:
             try:
+                # 给对浏览器的每个操作加上日志记录
+                if func.__name__ == 'chrome_driver':
+                    log.info('启动谷歌浏览器并最大化窗口')
+                elif func.__name__ == 'open':
+                    log.info('打开 ' + (args[0].url)[1] + ' 页面')
+                elif func.__name__ == 'wait':
+                    log.info('等待 ' + str(args[1]) + ' 秒')
+                elif func.__name__ == 'input':
+                    log.info('在 ' + args[1][1] + ' 输入：' + args[2])
+                elif func.__name__ == 'click':
+                    log.info('点击 ' + args[1][1])
+                elif func.__name__ == 'get_text':
+                    log.info('获取 ' + args[1][1] + ' 的文本属性')
+                elif func.__name__ == 'clear':
+                    log.info('清空 ' + args[1][1] + ' 的字符')
+                elif func.__name__ == 'get_attribute':
+                    log.info('获取 ' + args[1][1] + ' 的属性：' + args[2] + '的值')
+                elif func.__name__ == 'get_title':
+                    log.info('获取页面的标题')
+                elif func.__name__ == 'switch_to_frame':
+                    log.info('切换到 ' + args[1][1])
+                elif func.__name__ == 'switch_to_content':
+                    log.info('退出frame，回到页面')
+                elif func.__name__ == 'js':
+                    log.info('执行js: ' + args[1][1])
+                elif func.__name__ == 'right_click':
+                    log.info('模拟鼠标右击 ' + args[1][1])
+                elif func.__name__ == 'double_click':
+                    log.info('模拟鼠标双击 ' + args[1][1])
+                elif func.__name__ == 'move_to_element':
+                    log.info('模拟鼠标悬停在 ' + args[1][1])
+                elif func.__name__ == 'drag_and_drop':
+                    log.info('模拟鼠标把元素 ' + args[1][1] + ' 拖拽到 ' + args[2][1])
+                elif func.__name__ == 'switch_to_windows_by_title':
+                    log.info('浏览器窗口切换到 ' + args[1][1])
+                elif func.__name__ == 'forward':
+                    log.info('浏览器前进')
+                elif func.__name__ == 'back':
+                    log.info('浏览器后退')
+                elif func.__name__ == 'refresh':
+                    log.info('刷新当前页面')
+                elif func.__name__ == 'close':
+                    log.info('关闭当前窗口')
+                elif func.__name__ == 'is_element_exist':
+                    log.info('判断元素 ' + args[1][1] + ' 是否存在')
+                elif func.__name__ == 'quit':
+                    log.info('退出浏览器')
+                else:
+                    log.error('未知操作')
+
                 ret = func(*args, **kwargs)
                 break
             except:
+                log.warning('操作失败%s次' % i)
                 if i == 3:
                     curr_path = os.path.dirname(os.path.realpath(__file__))
-                    image_name = os.path.join(
-                        os.path.dirname(curr_path),
-                        'TestReport',
-                        'image',
-                        time.strftime("%Y_%m_%d_%H_%M_%S") + '.jpg'
-                    )
-                    log.error('operation failed, screenshots can be found through logs by time~')
+                    image_name = os.path.join(os.path.dirname(curr_path),
+                                              'TestReport',
+                                              'images',
+                                              time.strftime("%Y_%m_%d_%H_%M_%S") + '.jpg')
+                    log.error('不再重试，可通过记录日志的时间找到对应的截图～')
                     args[0].driver.get_screenshot_as_file(image_name)
                     raise
                 i += 1
@@ -40,14 +92,25 @@ def shot(func):
     return function
 
 
-@shot
-def chorme_driver():
-    driver = web_driver.Chrome()
+@executionlog
+def chrome_driver():
+    # 启动谷歌浏览器
+
+    driver = web_driver.Chrome('/usr/local/bin/chromedriver')
     driver.maximize_window()
     return driver
 
 
+@executionlog
+def quit(driver):
+    # 退出浏览器
+
+    driver.quit()
+
+
 def android_app_driver(appPackage, appActivity):
+    # 启动app
+
     app_parameters = {
         'platformName': 'Android',
         'deviceName': 'MEIZU MX5',
@@ -58,91 +121,130 @@ def android_app_driver(appPackage, appActivity):
         'resetKeyboard': True,
         'noReset': True,
         'noSign': True,
-        # 'app': r'D:\app\BoYuStaff_Android_2.7.5_2019-10-18_14-43.apk'
+        # 'app': r'D:\app\test.apk'
         # 'newCommandTimeout': '70'
     }
     return app_driver.Remote('http://127.0.0.1:4723/wd/hub', app_parameters)
 
 
 class PCBaseUI:
+    """WEB UI层自动化测试，基础页面对象类"""
+
     url = ''
-    config = my_config.MyConfig()
     pc_host = config.get_conf('web_ui', 'pc_host')
 
     def __init__(self, driver, pc_host=pc_host):
+        # 初始化host和driver
+
         self.pc_host = pc_host
         self.driver = driver
         self.timeout = 30
 
-    def local_element(self, loc):
+    def locate_element(self, loc):
+        # 以显示等待的方式定位元素
+
         time.sleep(0.5)
-        return WebDriverWait(self.driver, 25).until(EC.presence_of_element_located(loc))
+        return WebDriverWait(self.driver, self.timeout).until(EC.presence_of_element_located(loc[0]))
 
-    @shot
+    @executionlog
     def open(self):
-        self.driver.get(self.pc_host + self.url)
+        # 打开页面
 
-    @shot
+        self.driver.get(self.pc_host + self.url[0])
+
+    @executionlog
     def click(self, loc):
-        self.local_element(loc).click()
+        # 点击
 
-    @shot
+        self.locate_element(loc).click()
+
+    @executionlog
     def clear(self, loc):
-        self.local_element(loc).clear()
+        # 清空
 
-    @shot
+        self.locate_element(loc).clear()
+
+    @executionlog
     def input(self, loc, text):
-        self.local_element(loc).send_keys(text)
+        # 输入
 
-    @shot
+        self.locate_element(loc).send_keys(text)
+
+    @executionlog
+    def wait(self, sec):
+        # 等待
+
+        time.sleep(sec)
+
+    @executionlog
     def get_attribute(self, loc, attribute):
-        return self.local_element(loc).get_attribute(attribute)
+        # 获取元素属性的值
 
-    @shot
+        return self.locate_element(loc).get_attribute(attribute)
+
+    @executionlog
     def get_text(self, loc):
-        return self.local_element(loc).text
+        # 获取元素的文本属性
 
-    @shot
+        return self.locate_element(loc).text
+
+    @executionlog
     def get_title(self):
+        # 获取页面标题
+
         return self.driver.title
 
-    @shot
+    @executionlog
     def switch_to_frame(self, loc):
-        self.driver.switch_to.frame(self.local_element(loc))
+        # 切换到页面里面的frame
 
-    @shot
+        self.driver.switch_to.frame(self.locate_element(loc))
+
+    @executionlog
     def switch_to_content(self):
+        # 退出frame
+
         self.driver.switch_to.default_content()
 
-    @shot
+    @executionlog
     def js(self, js):
-        self.driver.excute_script(js)
+        # 执行js
 
-    @shot
+        self.driver.execute_script(js[0])
+
+    @executionlog
     def right_click(self, loc):
-        ActionChains(self.driver).context_click(self.local_element(loc)).perform()
+        # 模拟鼠标右击
 
-    @shot
+        ActionChains(self.driver).context_click(self.locate_element(loc)).perform()
+
+    @executionlog
     def double_click(self, loc):
-        ActionChains(self.driver).double_click(self.local_element(loc)).perform()
+        # 模拟鼠标双击
 
-    @shot
+        ActionChains(self.driver).double_click(self.locate_element(loc)).perform()
+
+    @executionlog
     def move_to_element(self, loc):
-        ActionChains(self.driver).move_to_element(self.local_element(loc)).perform()
+        # 模拟鼠标悬停
 
-    @shot
+        ActionChains(self.driver).move_to_element(self.locate_element(loc)).perform()
+
+    @executionlog
     def drag_and_drop(self, loc1, loc2):
-        element1 = self.local_element(loc1)
-        element2 = self.local_element(loc2)
+        # 模拟鼠标移动元素
+
+        element1 = self.locate_element(loc1)
+        element2 = self.locate_element(loc2)
         ActionChains(self.driver).drag_and_drop(element1, element2).perform()
 
-    @shot
+    @executionlog
     def switch_to_windows_by_title(self, title):
-        '''
+        """
         切换到名字为title的窗口
         :param title: 窗口标题
         :return: 当前窗口的句柄
-        '''
+        """
 
         handles = self.driver.window_handles
         for handle in handles:
@@ -150,33 +252,39 @@ class PCBaseUI:
             if (self.driver.title.__contains__(title)):
                 break
 
-    @shot
+    @executionlog
     def forward(self):
+        # 前进
+
         self.driver.forward()
 
-    @shot
+    @executionlog
     def back(self):
+        # 后退
+
         self.driver.back()
 
-    @shot
+    @executionlog
     def refresh(self):
+        # 刷新页面
+
         self.driver.refresh()
 
-    @shot
+    @executionlog
     def is_element_exist(self, loc):
+        # 判断元素是否存在
+
         try:
-            self.driver.find_element(*loc)
+            self.driver.find_element(*(loc[0]))
             return True
         except:
             return False
 
-    @shot
+    @executionlog
     def close(self):
-        self.driver.close()
+        # 关闭页面
 
-    @shot
-    def quit(self):
-        self.driver.quit()
+        self.driver.close()
 
 
 class APPBaseUI:
@@ -185,31 +293,31 @@ class APPBaseUI:
         self.driver = driver
         self.timeout = 30
 
-    def local_element(self, loc):
+    def locate_element(self, loc):
         time.sleep(0.5)
-        return WebDriverWait(self.driver, 25).until(EC.presence_of_element_located(loc))
+        return WebDriverWait(self.driver, self.timeout).until(EC.presence_of_element_located(loc[0]))
 
     def click(self, loc):
-        self.local_element(loc).click()
+        self.locate_element(loc).click()
 
     def clear(self, loc):
-        self.local_element(loc).clear()
+        self.locate_element(loc).clear()
 
     def input(self, loc, text):
-        self.local_element(loc).send_keys(text)
+        self.locate_element(loc).send_keys(text)
 
     def is_element_exist(self, loc):
         try:
-            self.driver.find_element(*loc)
+            self.driver.find_element(*(loc[0]))
             return True
         except:
             return False
 
-    def click_coordinates(self, location_x, location_y):
+    def click_coordinates(self, locationx, locationy):
         x = self.driver.get_window_size()['width']
         y = self.driver.get_window_size()['height']
-        x1 = int(x * location_x)
-        y1 = int(y * location_y)
+        x1 = int(x * locationx)
+        y1 = int(y * locationy)
         self.driver.swipe(x1, y1, x1, y1, 500)
 
     def switch_h5(self, h5_name):

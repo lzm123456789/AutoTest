@@ -15,5 +15,5 @@ class Shell:
 
 
 if __name__ == '__main__':
-    output = Shell.invoke(['echo', 'hello world'])
+    output = Shell.invoke(['which python3'])
     print(output)

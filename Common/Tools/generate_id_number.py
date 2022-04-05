@@ -5,26 +5,23 @@ from datetime import datetime, timedelta
 
 
 def timestr_to_stamp(time_str, time_format):
-    '''
-    字符串格式的时间转时间戳
-    '''
+    """字符串格式的时间转时间戳"""
+
     time_array = time.strptime(time_str, time_format)
     time_stamp = time.mktime(time_array)
     return time_stamp
 
 
 def stamp_to_timestr(time_stamp, time_format):
-    '''
-    时间戳转字符串格式时间
-    '''
+    """时间戳转字符串格式时间"""
+
     time_array = time.localtime(time_stamp)
     return time.strftime(time_format, time_array)
 
 
 def get_ago_later_stamp(years=0, months=0, days=0, minutes=0, seconds=0):
-    '''
-    获取偏移时间
-    '''
+    """获取偏移时间"""
+
     now = datetime.now()
     now += timedelta(days=days)
     now += timedelta(minutes=minutes)

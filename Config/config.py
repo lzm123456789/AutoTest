@@ -2,8 +2,8 @@
 """
 封装config方法
 """
-from configparser import ConfigParser
 import os
+from configparser import ConfigParser
 
 
 class MyConfig:
@@ -15,16 +15,19 @@ class MyConfig:
 
     def get_conf(self, title, value):
         """配置文件读取"""
+
         return self.config.get(title, value)
 
     def set_conf(self, title, value, text):
         """配置文件修改"""
+
         self.config.set(title, value, text)
         with open(self.conf_path, "w+") as f:
             return self.config.write(f)
 
     def add_section(self, title):
         """配置文件添加section"""
+
         self.config.add_section(title)
         with open(self.conf_path, "w+") as f:
             return self.config.write(f)
@@ -38,13 +41,7 @@ class MyConfig:
 
     def remove_section(self, title):
         """配置文件删除section"""
+
         self.config.remove_section(title)
         with open(self.conf_path, "w+") as f:
             return self.config.write(f)
-
-
-if __name__ == '__main__':
-    MyConfig().add_conf('title1')
-    MyConfig().set_conf('title1', 'value1', 'text1')
-    text = MyConfig().get_conf('title1', 'value1')
-    print(text)
