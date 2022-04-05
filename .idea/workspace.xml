@@ -2,26 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3566eaad-0614-427e-8cfe-bce904ed259a" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/AutoTest.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/AutoTest.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Common/Tools/generate_id_number.py" beforeDir="false" afterPath="$PROJECT_DIR$/Common/Tools/generate_id_number.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Common/Tools/mysql_curd.py" beforeDir="false" afterPath="$PROJECT_DIR$/Common/Tools/mysql_curd.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Common/Tools/read_write_excel.py" beforeDir="false" afterPath="$PROJECT_DIR$/Common/Tools/read_excel.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Common/Tools/send_mail.py" beforeDir="false" afterPath="$PROJECT_DIR$/Common/Tools/send_mail.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Common/Tools/shell.py" beforeDir="false" afterPath="$PROJECT_DIR$/Common/Tools/shell.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Common/base_api.py" beforeDir="false" afterPath="$PROJECT_DIR$/Common/base_api.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Common/base_ui.py" beforeDir="false" afterPath="$PROJECT_DIR$/Common/base_ui.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Common/my_assert.py" beforeDir="false" afterPath="$PROJECT_DIR$/Common/my_assert.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Common/my_unittest.py" beforeDir="false" afterPath="$PROJECT_DIR$/Common/my_unittest.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Config/config.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/config.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Config/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/Config/config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Log/log.py" beforeDir="false" afterPath="$PROJECT_DIR$/Log/log.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pages/demo.py" beforeDir="false" afterPath="$PROJECT_DIR$/Pages/demo.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestCase/api/demo.py" beforeDir="false" afterPath="$PROJECT_DIR$/TestCase/api/test_demo.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestCase/ui/demo.py" beforeDir="false" afterPath="$PROJECT_DIR$/TestCase/ui/test_demo.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TestScenario/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/TestSuite/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run.py" beforeDir="false" afterPath="$PROJECT_DIR$/run.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -47,7 +29,17 @@
     <favorites_list name="AutoTest" />
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="4224">
+              <caret line="128" column="6" selection-start-line="128" selection-start-column="6" selection-end-line="128" selection-end-column="6" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -114,8 +106,8 @@
         <option value="$PROJECT_DIR$/run.py" />
         <option value="$PROJECT_DIR$/TestCase/ui/test_demo.py" />
         <option value="$PROJECT_DIR$/TestSuite/demo.py" />
-        <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/Dockerfile" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -129,7 +121,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -141,6 +132,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -476,7 +468,8 @@
       <workItem from="1648107829459" duration="9000" />
       <workItem from="1649080161621" duration="4181000" />
       <workItem from="1649085696741" duration="73000" />
-      <workItem from="1649142983785" duration="415000" />
+      <workItem from="1649142983785" duration="630000" />
+      <workItem from="1649145972488" duration="11000" />
     </task>
     <servers />
   </component>
@@ -513,7 +506,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="220196000" />
+    <option name="totallyTimeSpent" value="220422000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -526,8 +519,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19170243" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19456366" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -903,13 +897,6 @@
     <entry file="file://$PROJECT_DIR$/run.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="5" column="5" lean-forward="true" selection-start-line="5" selection-start-column="5" selection-end-line="5" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Common/base_api.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1579">
@@ -922,6 +909,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Dockerfile">
       <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4224">
+          <caret line="128" column="6" selection-start-line="128" selection-start-column="6" selection-end-line="128" selection-end-column="6" />
+        </state>
+      </provider>
     </entry>
   </component>
 </project>
