@@ -16,7 +16,7 @@ class Demo(my_unittest.WebUI):
         baidu.open()
         baidu.wait(3)
         title = baidu.get_title()
-        myassert.assert_equal(title, '百度一下，你就知道1')
+        myassert.assert_equal(title, '百度一下，你就知道')
 
     def test_fail_demo(self):
         """断言失败的场景"""
@@ -26,7 +26,7 @@ class Demo(my_unittest.WebUI):
         baidu.open()
         baidu.wait(3)
         title = baidu.get_title()
-        myassert.assert_equal(title, '百度一下，你就知道2')
+        myassert.assert_equal(title, '百度一下，你就知道1')
 
     def test_shot_demo(self):
         """操作失败的场景"""
