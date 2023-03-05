@@ -1,4 +1,3 @@
-# coding=utf-8
 from Common.base_ui import PCBaseUI
 from selenium.webdriver.common.by import By
 
