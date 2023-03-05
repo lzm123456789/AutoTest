@@ -1,4 +1,3 @@
-# coding=utf-8
 import os
 import time
 from Log import log
@@ -350,3 +349,4 @@ class APPBaseUI:
 
     def enableSogouIME(self):
         os.system('adb shell ime set com.sohu.inputmethod.sogou/.SogouIME')
+

@@ -1,4 +1,3 @@
-# coding=utf-8
 from Common.Tools.generate_address import generate_address
 from Common.Tools.generate_id_number import generate_id_number
 from Common.Tools.generate_name import generate_name

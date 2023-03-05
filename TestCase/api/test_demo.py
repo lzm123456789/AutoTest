@@ -1,4 +1,3 @@
-# coding=utf-8
 import unittest
 from Common import my_assert
 from ddt import ddt, file_data
