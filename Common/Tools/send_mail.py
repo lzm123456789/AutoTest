@@ -77,4 +77,3 @@ class SendMail:
             self.log.info('Mail sent test report successfully~')
         except Exception as e:
             self.log.error('failed to send mail: %s' % e)
-            raise

@@ -1,0 +1,11 @@
+- username: test1
+  password: pwd1
+  info:
+    attribute1: 11
+    attribute2: 12
+
+- username: test2
+  password: pwd2
+  info:
+    attribute1: 21
+    attribute2: 22

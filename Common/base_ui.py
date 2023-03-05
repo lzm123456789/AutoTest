@@ -85,7 +85,7 @@ def executionlog(func):
                                               time.strftime("%Y_%m_%d_%H_%M_%S") + '.jpg')
                     log.error('不再重试，可通过记录日志的时间找到对应的截图～')
                     args[0].driver.get_screenshot_as_file(image_name)
-                    raise
+                    raise Exception('重试3次，还是操作失败')
                 i += 1
         return ret
 
@@ -248,7 +248,7 @@ class PCBaseUI:
 
         handles = self.driver.window_handles
         for handle in handles:
-            self.driver.switch_to_window(handle)
+            self.driver.switch_to.window(handle)
             if (self.driver.title.__contains__(title)):
                 break
 

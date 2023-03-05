@@ -18,3 +18,5 @@ def generate_user_info():
     info_dic['地址'] = generate_address(id_num)
     info_dic['姓名'] = generate_name()
     return info_dic
+
+print(generate_user_info())

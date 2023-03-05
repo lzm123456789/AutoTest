@@ -1,6 +1,8 @@
 # coding=utf-8
-from Common.my_unittest import Api
+import unittest
 from Common import my_assert
+from ddt import ddt, file_data
+from Common.my_unittest import Api
 
 myassert = my_assert.Assert()
 
@@ -16,10 +18,31 @@ class Demo(Api):
         myassert.assert_equal(response[1]['age'], '30')
 
 
-if __name__ == '__main__':
-    import unittest
+@ddt
+class TestTDD(Api):
 
+    @file_data('../../TestData/user.yaml')
+    def test_tdd(self, **kwargs):
+        print(kwargs)
+        print('执行')
+        print('断言')
+
+
+class TestSkip(Api):
+
+    @unittest.skipIf(1 == 1, '跳过')
+    def test_skip1(self):
+        myassert.assert_equal(1, 2)
+
+    @unittest.expectedFailure
+    def test_skip2(self):
+        print('期望失败')
+        myassert.assert_equal(1, 2)
+
+
+if __name__ == '__main__':
     testsuite = unittest.TestSuite()
     testrunner = unittest.TextTestRunner()
-    testsuite.addTest(Demo('test_demo'))
+    # testsuite.addTests(unittest.makeSuite(TestTDD))
+    testsuite.addTest(TestSkip('test_skip1'))
     testrunner.run(testsuite)
