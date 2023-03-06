@@ -5,17 +5,23 @@ app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False
 # 定义响应信息
 res1 = {
-    'name': 'lzm',
-    'sex': '男',
-    'job': '测试'
+    'errcode': 0,
+    'errmsg': '查询成功',
+    'data': {
+        'name': 'lzm',
+        'sex': '男',
+        'job': '测试'
+    }
 }
 res2 = {
     'errcode': 0,
-    'errmsg': '操作成功'
+    'errmsg': '操作成功',
+    'data': None
 }
 error = {
     'errcode': 1,
-    'errmsg': '失败'
+    'errmsg': '失败',
+    'data': None
 }
 
 
@@ -38,5 +44,4 @@ def mockserver():
 
 
 # 启动服务
-app.run(host='127.0.0.1', port=80, debug=True)
-
+app.run(host='127.0.0.1', port=8080, debug=True)
